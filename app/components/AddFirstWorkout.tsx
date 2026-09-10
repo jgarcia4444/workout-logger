@@ -1,8 +1,10 @@
+import { FiPlus } from "react-icons/fi";
 
 export default function AddFirstWorkout() {
     return (
-        <div>
-            <h1>Add First Workout</h1>
+        <div className="flex flex-col items-center justify-center h-full w-full">
+            <h1 className="text-xl font-bold">Add First Workout</h1>
+            <button className="p-4 bg-green-800/90 rounded-full hover:bg-green-800 transition-all duration-300 hover:cursor-pointer active:bg-green-800/60"><FiPlus color="black" size={32} /></button>
         </div>
     );
 }

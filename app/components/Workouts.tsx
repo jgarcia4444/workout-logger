@@ -14,9 +14,11 @@ export default async function Workouts() {
     }
   }
   return (
-    <div>
-      <h1>Workouts</h1>
-      {renderWorkouts()}
+    <div className="flex flex-col w-full">
+      <h1 className="text-3xl font-bold font-sans">Workouts</h1>
+      <div className="flex flex-row px-2 py-2 bg-gray-800 rounded-lg h-64">
+        {renderWorkouts()}
+      </div>
     </div>
   );
 }
