@@ -1,10 +1,7 @@
 import "dotenv/config";
-import { definePrismaConfig } from "prisma/config";
+import { defineConfig } from "prisma/config";
 
-export default definePrismaConfig({
-  skills: {
-    agents: ["claude", "cursor", "agents", "devin"],
-  },
+export default defineConfig({
   datasource: {
     // Prisma CLI automatically resolves your migrations and studio connections using this URL block
     url: process.env.DATABASE_URL,
