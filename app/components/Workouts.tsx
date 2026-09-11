@@ -17,11 +17,22 @@ export default function Workouts({workouts}: {workouts: [Workout]}) {
       return <AddFirstWorkout startAddWorkout={() => setShowForm(true)} />
     }
   }
+
+  const startWorkoutForm = (
+    <div className="w-full h-full absolute top-0 left-0 flex items-center justify-center rounded-lg">
+      Hola
+    </div>
+  )
+
   return (
     <div className="flex flex-col w-full">
       <h1 className="text-3xl font-bold font-sans">Workouts</h1>
       <div className="flex flex-row px-2 py-2 bg-gray-700/40 rounded-lg h-64 shadow-inner shadow-gray-600/50 relative">
-        {renderWorkouts()}
+      {showForm === true ?
+        startWorkoutForm
+      :
+        renderWorkouts()
+      }
       </div>
     </div>
   );
