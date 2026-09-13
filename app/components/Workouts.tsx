@@ -1,18 +1,20 @@
 'use client';
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { Workout } from "@prisma/client";
 
 import WorkoutCard from "@/app/components/WorkoutCard";
 import AddFirstWorkout from "@/app/components/AddFirstWorkout";
 
-export default function Workouts({workouts, createWorkout}: {workouts: [Workout], createWorkout: (workout: { name: string, description: string} | null) => Promise<{success: boolean}>}) {
+export default function Workouts({workouts, createWorkout}: {workouts: [Workout], createWorkout: (workout: { name: string, description: string} | null) => Promise<{success: boolean, workoutId?: number}>}) {
 
   const [showForm, setShowForm] = useState(false);
   const [workoutName, setWorkoutName] = useState("");
   const [nameError, setNameError] = useState("");
   const [workoutDescription, setWorkoutDescription] = useState("");
   const [descriptionError, setDescriptionError] = useState("");
+  const [generalError, setGeneralError] = useState("");
 
   const renderWorkouts = () => {
     if (workouts.length > 0 ) {
@@ -21,6 +23,8 @@ export default function Workouts({workouts, createWorkout}: {workouts: [Workout]
       return <AddFirstWorkout startAddWorkout={() => setShowForm(true)} />
     }
   }
+
+  const router = useRouter();
 
   const handleStartPressed = () => {
     setNameError("");
@@ -37,13 +41,16 @@ export default function Workouts({workouts, createWorkout}: {workouts: [Workout]
         description: workoutDescription
       }
       createWorkout(workoutInfo).then((result) => {
-        if (result.success) {
+        if (result.success && result.workoutId) {
           setShowForm(false);
           setWorkoutName("");
           setWorkoutDescription("");
           // Go to next step -> workout dashboard with the new workout information.
+          router.push(`workouts/workout-dashboard?workoutId=${result.workoutId}`)
+
         } else {
           // Handle error case
+          setGeneralError("Failed to create workout");
           console.log("Failed to create workout");
         }
       });
