@@ -6,16 +6,47 @@ import { Workout } from "@prisma/client";
 import WorkoutCard from "@/app/components/WorkoutCard";
 import AddFirstWorkout from "@/app/components/AddFirstWorkout";
 
-export default function Workouts({workouts}: {workouts: [Workout]}) {
+export default function Workouts({workouts, createWorkout}: {workouts: [Workout], createWorkout: (workout: { name: string, description: string} | null) => Promise<{success: boolean}>}) {
 
   const [showForm, setShowForm] = useState(false);
-  const [workoutName, setWorkoutName] = useState("")
+  const [workoutName, setWorkoutName] = useState("");
+  const [nameError, setNameError] = useState("");
+  const [workoutDescription, setWorkoutDescription] = useState("");
+  const [descriptionError, setDescriptionError] = useState("");
 
   const renderWorkouts = () => {
     if (workouts.length > 0 ) {
         return workouts.map((workout, index) => <WorkoutCard workout={workout} key={index} />)
     } else {
       return <AddFirstWorkout startAddWorkout={() => setShowForm(true)} />
+    }
+  }
+
+  const handleStartPressed = () => {
+    setNameError("");
+    setDescriptionError("");
+    if (workoutName.trim() === "") {
+      setNameError("Workout name is required");
+    }
+    if (workoutDescription.trim() === "") {
+      setDescriptionError("Workout description is required");
+    }
+    if (nameError === "" && descriptionError === "") {
+      let workoutInfo = {
+        name: workoutName,
+        description: workoutDescription
+      }
+      createWorkout(workoutInfo).then((result) => {
+        if (result.success) {
+          setShowForm(false);
+          setWorkoutName("");
+          setWorkoutDescription("");
+          // Go to next step -> workout dashboard with the new workout information.
+        } else {
+          // Handle error case
+          console.log("Failed to create workout");
+        }
+      });
     }
   }
 
@@ -30,10 +61,10 @@ export default function Workouts({workouts}: {workouts: [Workout]}) {
           </div>
           <div className="flex flex-col w-full">
             <label>Description</label>
-            <textarea rows={4} className="bg-black rounded-lg shadow-inner shadow-white/20 py-1 px-2" />
+            <textarea value={workoutDescription} name="workoutDescription" onChange={(e) => setWorkoutDescription(e.target.value)} rows={4} className="bg-black rounded-lg shadow-inner shadow-white/20 py-1 px-2" />
           </div>
         </div>
-        <button className="px-6 py-2 bg-green-800/40 shadow-inner shadow-green-700/50 rounded-lg hover:bg-green-800/70 hover:shadow-green-700/80 transition-all duration-300 hover:cursor-pointer active:bg-green-800/60 font-bold font-sans">Start</button>
+        <button onClick={handleStartPressed} className="px-6 py-2 bg-green-800/40 shadow-inner shadow-green-700/50 rounded-lg hover:bg-green-800/70 hover:shadow-green-700/80 transition-all duration-300 hover:cursor-pointer active:bg-green-800/60 font-bold font-sans">Start</button>
       </form>
     </div>
   )
