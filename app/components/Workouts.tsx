@@ -28,7 +28,8 @@ export default function Workouts({workouts}: {workouts: [Workout]}) {
 
   const router = useRouter();
 
-  const handleStartPressed = async () => {
+  const handleStartPressed = async (e: React.FormEvent) => {
+    e.preventDefault();
     setNameError("");
     setDescriptionError("");
     if (workoutName.trim() === "") {
@@ -71,7 +72,7 @@ export default function Workouts({workouts}: {workouts: [Workout]}) {
             <textarea value={workoutDescription} name="workoutDescription" onChange={(e) => setWorkoutDescription(e.target.value)} rows={4} className="bg-black rounded-lg shadow-inner shadow-white/20 py-1 px-2" />
           </div>
         </div>
-        <button onClick={handleStartPressed} className="px-6 py-2 bg-green-800/40 shadow-inner shadow-green-700/50 rounded-lg hover:bg-green-800/70 hover:shadow-green-700/80 transition-all duration-300 hover:cursor-pointer active:bg-green-800/60 font-bold font-sans">Start</button>
+        <button onClick={handleStartPressed} type="submit" className="px-6 py-2 bg-green-800/40 shadow-inner shadow-green-700/50 rounded-lg hover:bg-green-800/70 hover:shadow-green-700/80 transition-all duration-300 hover:cursor-pointer active:bg-green-800/60 font-bold font-sans">Start</button>
       </form>
     </div>
   )

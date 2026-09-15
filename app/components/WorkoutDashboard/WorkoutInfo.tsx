@@ -1,16 +1,10 @@
-'use server'
-import { prisma } from "@/lib/prisma";
+
+import { findWorkout } from "@/app/actions/findWorkout"
 
 export default async function WorkoutInfo({workoutId}: {workoutId: string}) {
-    const workout = await prisma.workout.findUnique({
-        where: {
-            id: parseInt(workoutId)
-        },
-        select: {
-            id: true,
-            name: true
-        }
-    })
+
+    const workout = await findWorkout(workoutId);
+       
     return (
         <div>
             <h1>Workout Info</h1>

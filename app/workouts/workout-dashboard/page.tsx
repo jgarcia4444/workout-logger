@@ -1,9 +1,7 @@
 'use client';
+
 import { useSearchParams } from "next/navigation";
-
 import WorkoutInfo from "@/app/components/WorkoutDashboard/WorkoutInfo";
-
-
 
 export default function WorkoutDashboard() {
 
