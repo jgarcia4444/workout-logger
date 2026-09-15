@@ -7,7 +7,9 @@ import { Workout } from "@prisma/client";
 import WorkoutCard from "@/app/components/WorkoutCard";
 import AddFirstWorkout from "@/app/components/AddFirstWorkout";
 
-export default function Workouts({workouts, createWorkout}: {workouts: [Workout], createWorkout: (workout: { name: string, description: string} | null) => Promise<{success: boolean, workoutId?: number}>}) {
+import { createWorkout } from "@/app/actions/createWorkout";
+
+export default function Workouts({workouts}: {workouts: [Workout]}) {
 
   const [showForm, setShowForm] = useState(false);
   const [workoutName, setWorkoutName] = useState("");
@@ -43,11 +45,11 @@ export default function Workouts({workouts, createWorkout}: {workouts: [Workout]
       console.log()
       const result = await createWorkout(workoutInfo);
         console.log("RESULT FROM CREATE WORKOUT", result);
-        if (result.success && result.workoutId) {
+        if (result.id) {
           setShowForm(false);
           setWorkoutName("");
           setWorkoutDescription("");
-          router.push(`/workouts/workout-dashboard?workoutId=${result.workoutId}`)
+          router.push(`/workouts/workout-dashboard?workoutId=${result.id}`)
         } else {
           setGeneralError("Failed to create workout");
           console.log("Failed to create workout");
