@@ -26,7 +26,7 @@ export default function Workouts({workouts, createWorkout}: {workouts: [Workout]
 
   const router = useRouter();
 
-  const handleStartPressed = () => {
+  const handleStartPressed = async () => {
     setNameError("");
     setDescriptionError("");
     if (workoutName.trim() === "") {
@@ -40,20 +40,18 @@ export default function Workouts({workouts, createWorkout}: {workouts: [Workout]
         name: workoutName,
         description: workoutDescription
       }
-      createWorkout(workoutInfo).then((result) => {
+      console.log()
+      const result = await createWorkout(workoutInfo);
+        console.log("RESULT FROM CREATE WORKOUT", result);
         if (result.success && result.workoutId) {
           setShowForm(false);
           setWorkoutName("");
           setWorkoutDescription("");
-          // Go to next step -> workout dashboard with the new workout information.
-          router.push(`workouts/workout-dashboard?workoutId=${result.workoutId}`)
-
+          router.push(`/workouts/workout-dashboard?workoutId=${result.workoutId}`)
         } else {
-          // Handle error case
           setGeneralError("Failed to create workout");
           console.log("Failed to create workout");
         }
-      });
     }
   }
 

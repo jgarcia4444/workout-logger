@@ -18,6 +18,7 @@ export default async function Home() {
           description: workout.description
         }
       });
+      console.log("NEW WORKOUT", newWorkout);
       return {success: true, workoutId: newWorkout.id};
     } else if (!workout) {
       console.log("No workout data provided");
