@@ -10,7 +10,9 @@ export default function AddExerciseForm() {
                     <input className="w-full bg-black/40 rounded-lg p-2 shadow-inner shadow-black text-white" type="number" placeholder="Reps" />
                     <input className="w-full bg-black/40 rounded-lg p-2 shadow-inner shadow-black text-white" type="number" placeholder="Weight" />
                 </div>
-                <button className="w-full hover:cursor-pointer" type="submit">Add Exercise</button>
+                <div className="w-full flex items-end justify-end">
+                    <button className="px-4 py-2 bg-gray-700/40 rounded-lg hover:cursor-pointer w-48 text-black font-bold transition-all duration-200 hover:bg-gray-500/60 hover:text-white active:bg-gray-700/80 active:text-white" type="submit">Add Exercise</button>
+                </div>
             </form>
         </div>
     )
