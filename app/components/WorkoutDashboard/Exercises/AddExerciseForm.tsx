@@ -34,7 +34,7 @@ export default function AddExerciseForm() {
     }
 
     return (
-        <div className="w-full flex flex-col items-center justify-center">
+        <div className="w-full h-1/2 flex flex-col items-center justify-center">
             <form className="w-full flex flex-col gap-2 h-full">
                 <div className="w-full flex flex-col">
                     <label className="text-black font-bold text-sm">Exercise Name</label>
