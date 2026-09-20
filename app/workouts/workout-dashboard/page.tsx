@@ -12,7 +12,7 @@ import ExercisesList from "@/app/components/WorkoutDashboard/Exercises/Exercises
 export default function WorkoutDashboard() {
 
     const searchParams = useSearchParams();
-    const workoutId = searchParams.get("workoutId");
+    const workoutId = parseInt(searchParams.get("workoutId") || "0");
     const [workout, setWorkout] = useState<{name: string, id: number} | null>(null);
     
     useEffect(() => {
@@ -35,14 +35,17 @@ export default function WorkoutDashboard() {
 
     return (
         <div className="w-full h-screen mx-auto p-4 flex flex-col gap-4 items-center justify-center">
-            <WorkoutInfo workout={workout} />
+            <div className="w-full flex flex-row items-center justify-center gap-4">
+                <h1 className="text-4xl text-shadow-md text-shadow-primary-orange font-thin text-primary-orange font-sans">FORGE</h1>
+                <WorkoutInfo workout={workout} />
+            </div>
             <div className="flex flex-row gap-4 w-full h-5/6">
                 <div className="w-2/3 px-2 py-4 bg-gray-700/40 rounded-lg shadow-inner shadow-gray-600/50 flex flex-col items-center justify-center">
                     <AddExerciseForm />
                     <ExercisVideos />
                 </div>
                 <div className="w-1/3 px-2 py-4 bg-gray-700/40 rounded-lg shadow-inner shadow-gray-600/50">
-                    <ExercisesList />
+                    <ExercisesList workoutId={workoutId} />
                 </div>
             </div>
         </div>
