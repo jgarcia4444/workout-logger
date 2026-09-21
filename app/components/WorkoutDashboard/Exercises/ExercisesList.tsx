@@ -27,8 +27,11 @@ export default function ExercisesList({ workoutId }: { workoutId: number }) {
     }
 
     return (
-        <div className="w-full h-full flex flex-col items-center justify-center overflow-y-auto">
-            <h1 className="text-xl font-bold text-black">Exercises</h1>
+        <div className="w-full h-full flex flex-col items-start justify-start overflow-y-auto">
+            <div className="w-full border-b border-gray-600 p-4 flex flex-row items-center justify-start gap-2">
+                <div className="w-1 h-full bg-primary-orange rounded-full"/>
+                <h1 className="text-xl font-bold text-white">Exercises</h1>
+            </div>
             {renderExercises(exercises)}
         </div>
     );
