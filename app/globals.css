@@ -13,6 +13,7 @@
   --color-primary-orange: #fe4f0c;
   --color-brighter-orange: #fe4e1a;
   --color-gray-input: #1c1b20;
+  --color-input-gray: #1c1b20;
 }
 
 @media (prefers-color-scheme: dark) {

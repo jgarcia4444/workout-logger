@@ -34,18 +34,18 @@ export default function WorkoutDashboard() {
     }
 
     return (
-        <div className="w-full h-screen mx-auto flex flex-col gap-4 items-center justify-center">
+        <div className="w-full h-screen mx-auto flex flex-col items-center justify-center">
             <div className="w-full flex flex-row items-center justify-center gap-4 border-b border-gray-600 px-4 py-1">
                 <h1 className="text-2xl text-shadow-md text-shadow-primary-orange font-thin text-primary-orange font-sans">FORGE</h1>
                 <div className="w-px h-8 bg-gray-600 rounded-2xl"></div>
                 <WorkoutInfo workout={workout} />
             </div>
-            <div className="flex flex-row gap-4 w-full h-5/6">
-                <div className="w-2/3 flex flex-col items-center justify-center">
+            <div className="flex flex-row w-full h-full">
+                <div className="w-2/3 h-full flex flex-col items-center justify-center border-r border-gray-600">
                     <AddExerciseForm />
                     <ExerciseVideos />
                 </div>
-                <div className="w-1/3 px-2 py-4 bg-gray-700/40 rounded-lg shadow-inner shadow-gray-600/50">
+                <div className="w-1/3 h-full">
                     <ExercisesList workoutId={workoutId} />
                 </div>
             </div>
