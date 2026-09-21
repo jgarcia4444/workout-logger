@@ -1,5 +1,5 @@
 
-export default function ExercisVideos() {
+export default function ExerciseVideos() {
     return (
         <div className="w-full h-1/2 flex flex-col items-center justify-center">
             <h1 className="text-xl font-bold">Tutorials</h1>
