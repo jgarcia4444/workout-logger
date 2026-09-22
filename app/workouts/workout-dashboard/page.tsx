@@ -50,7 +50,7 @@ export default function WorkoutDashboard() {
 
     
 
-    if (!workoutId) {
+    if (!workoutId || !workout?.id) {
         return (
             <div>
                 <h1>Workout not found</h1>
