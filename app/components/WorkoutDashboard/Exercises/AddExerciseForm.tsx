@@ -1,7 +1,10 @@
 'use client';
 
 import {useState} from 'react';
-export default function AddExerciseForm() {
+
+import { createExercise } from '@/app/actions/createExercise';
+
+export default function AddExerciseForm({workoutId}: {workoutId: number}) {
 
     const [exerciseName, setExerciseName] = useState('');
     const [exerciseDescription, setExerciseDescription] = useState('');
@@ -10,7 +13,18 @@ export default function AddExerciseForm() {
     const [weight, setWeight] = useState(0);
 
     const handleAddExercise = () => {
-        // TODO: Add exercise logic
+        if (!exerciseName || !exerciseDescription || !sets || !reps || !weight) {
+            return;
+        }
+        let exercise = {
+            workoutId: workoutId,
+            name: exerciseName,
+            description: exerciseDescription,
+            sets: sets,
+            reps: reps,
+            weight: weight
+        }
+        createExercise(exercise);
     }
 
     const handleExerciseNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -39,7 +53,7 @@ export default function AddExerciseForm() {
                 <div className="w-1 h-full bg-primary-orange rounded-full"/>
                 <h4 className="text-md font-bold">ADD EXERCISE</h4>
             </div>
-            <form className="w-full flex flex-col gap-2 h-full">
+            <form action={handleAddExercise} className="w-full flex flex-col gap-2 h-full">
                 <div className="w-full flex flex-col">
                     <label className="text-black font-bold text-xs">Exercise Name</label>
                     <input className="w-full bg-input-gray border border-white/10 rounded-lg p-2  text-white" type="text" placeholder="Exercise Name" value={exerciseName} onChange={handleExerciseNameChange} />
@@ -62,7 +76,7 @@ export default function AddExerciseForm() {
                         <input className="w-full bg-input-gray border border-white/10 rounded-lg p-2 text-white" type="number" placeholder="Weight" value={weight} onChange={handleWeightChange} />
                     </div>
                 </div>
-                    <button onClick={handleAddExercise} className="px-4 py-2 bg-primary-orange rounded-lg hover:cursor-pointer text-white font-bold transition-all duration-200 hover:bg-primary-orange/80 hover:text-white active:bg-primary-orange/60 active:text-white w-full mt-4" type="submit">+ ADD EXERCISE</button>
+                    <button type="submit" className="px-4 py-2 bg-primary-orange rounded-lg hover:cursor-pointer text-white font-bold transition-all duration-200 hover:bg-primary-orange/80 hover:text-white active:bg-primary-orange/60 active:text-white w-full mt-4">+ ADD EXERCISE</button>
             </form>
         </div>
     )

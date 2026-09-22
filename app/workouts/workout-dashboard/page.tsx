@@ -42,7 +42,7 @@ export default function WorkoutDashboard() {
             </div>
             <div className="flex flex-row w-full h-full">
                 <div className="w-2/3 h-full flex flex-col items-center justify-center border-r border-gray-600">
-                    <AddExerciseForm />
+                    <AddExerciseForm workoutId={workoutId} />
                     <ExerciseVideos />
                 </div>
                 <div className="w-1/3 h-full">

@@ -1,7 +1,9 @@
 'use client';
 import { useEffect, useState } from "react";
+
 import { findWorkout } from "@/app/actions/findWorkout";
 import { Exercise, Workout } from "@prisma/client";
+
 import ExerciseCard from "@/app/components/WorkoutDashboard/Exercises/ExerciseCard";
 
 export default function ExercisesList({ workoutId }: { workoutId: number }) {
