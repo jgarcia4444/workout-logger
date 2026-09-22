@@ -3,25 +3,50 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { findWorkout } from "@/app/actions/findWorkout";
+import { findExercisesByWorkoutId } from "@/app/actions/findExercisesByWorkoutId";
+import { createExercise } from "@/app/actions/createExercise";
+import { Exercise, Workout } from "@prisma/client";
 
 import WorkoutInfo from "@/app/components/WorkoutDashboard/WorkoutInfo";
 import AddExerciseForm from "@/app/components/WorkoutDashboard/Exercises/AddExerciseForm";
 import ExerciseVideos from "@/app/components/WorkoutDashboard/Exercises/ExerciseVideos";
 import ExercisesList from "@/app/components/WorkoutDashboard/Exercises/ExercisesList";
 
+interface ExerciseInfo {
+    workoutId: number;
+    name: string;
+    description: string;
+    sets: number;
+    reps: number;
+    weight: number;
+}
+
 export default function WorkoutDashboard() {
 
     const searchParams = useSearchParams();
     const workoutId = parseInt(searchParams.get("workoutId") || "0");
-    const [workout, setWorkout] = useState<{name: string, id: number} | null>(null);
+    const [workout, setWorkout] = useState<Workout | null>(null);
+    const [exercises, setExercises] = useState<Exercise[]>([]);
     
     useEffect(() => {
         if (workoutId) {
             findWorkout(workoutId).then((workout) => {
                 setWorkout(workout);
             });
+            findExercisesByWorkoutId(workoutId).then((exercises: Exercise[]) => {
+                setExercises(exercises);
+            });
         }
     }, [workoutId])
+
+    const handleCreateExercise = async (exerciseInfo: ExerciseInfo) => {
+        const newExercise = await createExercise(exerciseInfo);
+        if (newExercise) {
+            setExercises([...exercises, newExercise]);
+            return true;
+        }
+        return false;
+    }
 
     
 
@@ -42,11 +67,11 @@ export default function WorkoutDashboard() {
             </div>
             <div className="flex flex-row w-full h-full">
                 <div className="w-2/3 h-full flex flex-col items-center justify-center border-r border-gray-600">
-                    <AddExerciseForm workoutId={workoutId} />
+                    <AddExerciseForm handleCreateExercise={handleCreateExercise} workout={workout} />
                     <ExerciseVideos />
                 </div>
                 <div className="w-1/3 h-full">
-                    <ExercisesList workoutId={workoutId} />
+                    <ExercisesList workout={workout} exercises={exercises} />
                 </div>
             </div>
         </div>

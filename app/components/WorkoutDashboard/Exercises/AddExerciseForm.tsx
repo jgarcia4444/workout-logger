@@ -2,9 +2,18 @@
 
 import {useState} from 'react';
 
-import { createExercise } from '@/app/actions/createExercise';
+import {Workout} from '@prisma/client';
 
-export default function AddExerciseForm({workoutId}: {workoutId: number}) {
+interface ExerciseInfo {
+    workoutId: number;
+    name: string;
+    description: string;
+    sets: number;
+    reps: number;
+    weight: number;
+}
+
+export default function AddExerciseForm({workout, handleCreateExercise}: {workout: Workout, handleCreateExercise: (exerciseInfo: ExerciseInfo) => Promise<boolean>}) {
 
     const [exerciseName, setExerciseName] = useState('');
     const [exerciseDescription, setExerciseDescription] = useState('');
@@ -12,19 +21,27 @@ export default function AddExerciseForm({workoutId}: {workoutId: number}) {
     const [reps, setReps] = useState(0);
     const [weight, setWeight] = useState(0);
 
-    const handleAddExercise = () => {
+    const handleAddExercise = async () => {
         if (!exerciseName || !exerciseDescription || !sets || !reps || !weight) {
             return;
         }
-        let exercise = {
-            workoutId: workoutId,
+        let exercise: ExerciseInfo = {
+            workoutId: workout.id,
             name: exerciseName,
             description: exerciseDescription,
             sets: sets,
             reps: reps,
             weight: weight
         }
-        createExercise(exercise);
+        const success = await handleCreateExercise(exercise);
+        if (!success) {
+            return;
+        }
+        setExerciseName('');
+        setExerciseDescription('');
+        setSets(0);
+        setReps(0);
+        setWeight(0);
     }
 
     const handleExerciseNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {

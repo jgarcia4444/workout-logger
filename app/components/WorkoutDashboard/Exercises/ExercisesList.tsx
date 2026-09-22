@@ -1,24 +1,20 @@
 'use client';
 import { useEffect, useState } from "react";
 
-import { findWorkout } from "@/app/actions/findWorkout";
-import { Exercise, Workout } from "@prisma/client";
+import { findExercisesByWorkoutId } from "@/app/actions/findExercisesByWorkoutId";
+import { Exercise } from "@prisma/client";
 
 import ExerciseCard from "@/app/components/WorkoutDashboard/Exercises/ExerciseCard";
 
-export default function ExercisesList({ workoutId }: { workoutId: number }) {
-    
-    const [workout, setWorkout] = useState<Workout | null>(null);
-    const [exercises, setExercises] = useState<Exercise[]>([]);
+export default function ExercisesList({ workoutId, exercises }: { workoutId: number, exercises: Exercise[] }) {
 
-    useEffect(() => {
-        const fetchWorkout = async () => {
-            const workout = await findWorkout(workoutId);
-            setWorkout(workout);
-            setExercises(workout?.exercises || []);
-        }
-        fetchWorkout();
-    }, [workoutId]);
+    // useEffect(() => {
+    //     const fetchWorkout = async () => {
+    //         const fetchedExercises = await findExercisesByWorkoutId(workoutId)
+    //         setExercises(fetchedExercises || []);
+    //     }
+    //     fetchWorkout();
+    // }, [workoutId]);
 
     const renderExercises = (exercises: Exercise[]) => {
         return exercises.map((exercise) => (
