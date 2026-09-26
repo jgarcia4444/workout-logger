@@ -72,24 +72,24 @@ export default function AddExerciseForm({workout, handleCreateExercise}: {workou
             </div>
             <form action={handleAddExercise} className="w-full flex flex-col gap-2 h-full">
                 <div className="w-full flex flex-col">
-                    <label className="text-black font-bold text-xs">Exercise Name</label>
+                    <label className="text-gray-500 font-bold text-xs">Exercise Name</label>
                     <input className="w-full bg-input-gray border border-white/10 rounded-lg p-2  text-white" type="text" placeholder="Exercise Name" value={exerciseName} onChange={handleExerciseNameChange} />
                 </div>
                 <div className="w-full flex flex-col">
-                    <label className="text-black font-bold text-xs">Exercise Description</label>
+                    <label className="text-gray-500 font-bold text-xs">Exercise Description</label>
                     <textarea className="w-full bg-input-gray border border-white/10 rounded-lg p-2 text-white" placeholder="Exercise Description" value={exerciseDescription} onChange={handleExerciseDescriptionChange} />
                 </div>
                 <div className="w-full flex gap-2">
                     <div className="w-full flex flex-col">
-                        <label className="text-black font-bold text-xs">Sets</label>
+                        <label className="text-gray-500 font-bold text-xs">Sets</label>
                         <input className="w-full bg-input-gray border border-white/10 rounded-lg p-2 text-white" type="number" placeholder="Sets" value={sets} onChange={handleSetsChange} />
                     </div>
                     <div className="w-full flex flex-col">
-                        <label className="text-black font-bold text-xs">Reps</label>
+                        <label className="text-gray-500 font-bold text-xs">Reps</label>
                         <input className="w-full bg-input-gray border border-white/10 rounded-lg p-2 text-white" type="number" placeholder="Reps" value={reps} onChange={handleRepsChange} />
                     </div>
                     <div className="w-full flex flex-col">
-                        <label className="text-black font-bold text-xs">Weight</label>
+                        <label className="text-gray-500 font-bold text-xs">Weight</label>
                         <input className="w-full bg-input-gray border border-white/10 rounded-lg p-2 text-white" type="number" placeholder="Weight" value={weight} onChange={handleWeightChange} />
                     </div>
                 </div>
